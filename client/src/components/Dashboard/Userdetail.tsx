@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router';
+import React, { Component } from 'react'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 axios.defaults.withCredentials = true
 
@@ -14,8 +14,8 @@ interface IUser {
     userId:string,
 }
 
-function Detail(props:IUser) {
-    return(
+function Detail (props:IUser) {
+  return (
          <div className="card">
                 <div className="card-header">
                     Details
@@ -25,29 +25,29 @@ function Detail(props:IUser) {
                     <p className="card-text"><b>Email: </b>  {props.email}</p>
                     <Link className="btn btn-warning" to='/dashboard'>Go Back </Link>
                 </div>
-            </div> 
-    )
+            </div>
+  )
 }
 
-class Userdetail extends Component<any, UserState> {
-       
-    constructor(props:any) {
-        super(props);
-        const {userId} = useParams()
-        const data = async () => { await axios.get(`${process.env.API_URL}:${process.env.API_PORT}/api/users/`+ userId)
+class Userdetail extends Component<{}, UserState> {
+  constructor (props:any) {
+    super(props)
+    const { userId } = useParams()
+    const data = async () => {
+      await axios.get(`${process.env.API_URL || 'http:///localhost:'}:${process.env.API_PORT || 8000}/api/users/` + userId)
     }
-        this.state={
-            UserInformations: data.toString()
+    this.state = {
+      UserInformations: data.toString()
     }
-}
+  }
 
-    render() {
-        return (
+  render () {
+    return (
             <div>
             {this.state.UserInformations && <Detail {...this.state.UserInformations} />}
             </div>
-        );
-    }
+    )
+  }
 }
 
-export default Userdetail;
+export default Userdetail

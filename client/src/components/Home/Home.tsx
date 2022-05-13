@@ -1,28 +1,22 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import {useNavigate } from 'react-router-dom';
-import { AxiosResponse } from 'axios';
-import Login from './Login';
-import Register from './Register';
-const Redirect = useNavigate()
+import React, { Component } from 'react'
+import axios, { AxiosResponse } from 'axios'
+import { useNavigate } from 'react-router-dom'
 
-interface getCurrentUser {
-  getCurrentUser():void
-}
+import Login from './Login'
+import Register from './Register'
 
-export default class Home extends Component<any, getCurrentUser> {
-  state:getCurrentUser = {
-    getCurrentUser() {
-      axios.get(`${process.env.API_URL}:${process.env.API_PORT}/api/currentUser`)
-      .then((res:AxiosResponse)=>{
-          if(res.data.IsAuthenticated){
-             return(Redirect(`/dashboard`))
-          }
-          else return Redirect(`/`)
+export default class Home extends Component {
+  getCurrentUser () {
+    const Redirect = useNavigate()
+    axios.get(`${process.env.API_URL || 'http:///localhost:'}:${process.env.API_PORT || 8000}/api/currentUser`)
+      .then((res:AxiosResponse) => {
+        if (res.data.IsAuthenticated) {
+          return (Redirect('/dashboard'))
+        } else return Redirect('/')
       })
-    },
   }
-  render() {
+
+  render () {
     return (
       <div className='container'>
         <Register/>
