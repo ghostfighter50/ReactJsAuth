@@ -5,7 +5,7 @@ Full stack Authentication system (Login, Register) made with typescript, react a
 
 
 
-## Roadmap
+## TODO
 
 - More secure application
 
@@ -27,9 +27,8 @@ Add badges from somewhere like: [shields.io](https://shields.io/)
 
 ## API Reference
 
-#### Get all items
 
-```http
+```
   POST /api/register
 ```
 
@@ -51,19 +50,19 @@ Add badges from somewhere like: [shields.io](https://shields.io/)
 | `email`      | `string` | **Required**. User's email |
 | `password`      | `string` | **Required**. User's password |
 
-```http
+```
   GET /api/logout //logs out current session
 ```
-```http
+```
   GET /api/currentUser //Returns User's data
 ```
-```http
+```
   GET /api/session //returns user's session
 ```
-```http
+```
   GET /api/users //returns all the data of the users
 ```
-```http
+```
   GET /api/users/:userId //returns the data of the specified user
 ```
 
