@@ -46,7 +46,7 @@ export default class Register extends Component<IUser, IUser> {
       case 'Email': this.setState({ email: e.target.value }); break
       case 'password': this.setState({ password: e.target.value }); break
       case 'passwordValidation': this.setState({ passwordValidation: e.target.value }); break
-      default: console.error('Invalid \'Name\' property')
+      default: return { error: 'Invalid \'Name\' property' }
     }
   }
 

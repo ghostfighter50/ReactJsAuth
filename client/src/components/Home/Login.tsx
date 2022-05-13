@@ -2,6 +2,7 @@ import React, { ChangeEvent, Component, FormEvent } from 'react'
 import axios from 'axios'
 
 interface IUser{
+  Name?:string
   email?:string,
   password?:string,
   message?:string,
@@ -11,6 +12,7 @@ export default class Login extends Component<IUser, IUser> {
   constructor (state: IUser) {
     super(state)
     this.state = {
+      Name: '',
       email: '',
       password: '',
       message: '',
@@ -27,7 +29,6 @@ export default class Login extends Component<IUser, IUser> {
       password: this.state.password
     }
     axios.post(`${process.env.API_URL || 'http:///localhost:'}:${process.env.API_PORT || 8000}/api/login`, data, { timeout: 11000 }).then((res) => {
-      console.log(res)
       if (res.data.errors) {
         return this.setState({ errors: res.data.errors })
       }
@@ -38,7 +39,7 @@ export default class Login extends Component<IUser, IUser> {
     switch (e.target.name) {
       case 'email': this.setState({ email: e.target.value }); break
       case 'password': this.setState({ password: e.target.value }); break
-      default: console.error('Invalid \'Name\' property')
+      default: return { error: 'Invalid \'Name\' property' }
     }
   }
 
