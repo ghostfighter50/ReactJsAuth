@@ -17,7 +17,6 @@ interface UsersList {
 
 function Result (props:UsersList) {
   let i = 0
-  console.log(props.Users)
   if (!props.Users || !Array.isArray(props.Users)) {
     return (
             <tr>
@@ -53,7 +52,6 @@ class Users extends Component<UserInfo, UsersList> {
   componentDidMount () {
     axios.get(`${process.env.API_URL || 'http:///localhost:'}:${process.env.API_PORT || 8000}/api/Users/`).then(Users => {
       this.setState({ Users: Users.data })
-      console.log(Users.data)
     })
   }
 
