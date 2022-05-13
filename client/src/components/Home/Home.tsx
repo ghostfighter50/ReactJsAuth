@@ -8,7 +8,7 @@ import Register from './Register'
 export default class Home extends Component {
   getCurrentUser () {
     const Redirect = useNavigate()
-    axios.get(`${process.env.API_URL || 'http:///localhost:'}:${process.env.API_PORT || 8000}/api/currentUser`)
+    axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/currentUser`)
       .then((res:AxiosResponse) => {
         if (res.data.IsAuthenticated) {
           return (Redirect('/dashboard'))

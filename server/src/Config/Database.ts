@@ -1,3 +1,4 @@
+/* eslint-disable n/no-path-concat */
 import mongoose = require('mongoose');
 import * as fs from 'fs'
 import { Logger } from '../Utilities/Logger'
@@ -8,10 +9,10 @@ const DBconnect = () => {
     useUnifiedTopology: true
   }).then(() => Logger({ type: 'DATABASE', content: 'Connected to the Database' }))
 
-  const models_path = (__dirname + '/../models')
-  fs.readdirSync(models_path).forEach(function (file) {
+  const ModelsPath = (__dirname + '/../models')
+  fs.readdirSync(ModelsPath).forEach(function (file) {
     if (file.indexOf('.js') > 0) {
-      require(models_path + '/' + file)
+      require(ModelsPath + '/' + file)
     }
   })
 }

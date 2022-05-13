@@ -33,7 +33,7 @@ export default class Register extends Component<IUser, IUser> {
       password: this.state.password,
       passwordValidation: this.state.passwordValidation
     }
-    axios.post(`${process.env.API_URL || 'http:///localhost:'}:${process.env.API_PORT || 8000}/api/register`, data).then((res) => {
+    axios.post(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/register`, data).then((res) => {
       if (res.data.errors !== undefined) {
         return this.setState({ errors: res.data.errors })
       }

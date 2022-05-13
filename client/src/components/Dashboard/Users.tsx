@@ -50,7 +50,7 @@ class Users extends Component<UserInfo, UsersList> {
   }
 
   componentDidMount () {
-    axios.get(`${process.env.API_URL || 'http:///localhost:'}:${process.env.API_PORT || 8000}/api/Users/`).then(Users => {
+    axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/Users/`).then(Users => {
       this.setState({ Users: Users.data })
     })
   }

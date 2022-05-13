@@ -28,7 +28,7 @@ class Main extends Component<unknown, IUser> {
   }
 
   GetData ():void {
-    axios.get(`${process.env.API_URL || 'http:///localhost:'}:${process.env.API_PORT || 8000}/api/currentUser`)
+    axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/currentUser`)
       .then((res) => {
         if (res.data.IsAuthenticated) {
           this.setState({ Name: res.data.Name })

@@ -28,7 +28,7 @@ export default class Login extends Component<IUser, IUser> {
       email: this.state.email,
       password: this.state.password
     }
-    axios.post(`${process.env.API_URL || 'http:///localhost:'}:${process.env.API_PORT || 8000}/api/login`, data, { timeout: 11000 }).then((res) => {
+    axios.post(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/login`, data, { timeout: 11000 }).then((res) => {
       if (res.data.errors) {
         return this.setState({ errors: res.data.errors })
       }

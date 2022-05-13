@@ -19,7 +19,7 @@ export async function createUser (req:Request, res:Response, next:NextFunction) 
     return res.send({ errors: errors.mapped() })
   } else {
     await user.save().catch((error:Error) => { return Logger(null, { type: 'Database', severity: 'low', content: `Saving Error : ${error.message}` }) })
-    return res.redirect(`${process.env.CLIENT_URL}:${process.env.CLIENT_PORT}/dashboard`)
+    return true// res.redirect(`${process.env.CLIENT_URL}:${process.env.CLIENT_PORT}/dashboard`)
   }
 }
 /**
@@ -60,7 +60,7 @@ export async function loginUser (req:Request, res:Response, next:NextFunction) {
       } else {
         req.session.user = user
         req.session.IsAuthenticated = true
-        return res.redirect(`${process.env.CLIENT_URL}:${process.env.CLIENT_PORT}/dashboard`)
+        return true// res.redirect(`${process.env.CLIENT_URL}:${process.env.CLIENT_PORT}/dashboard`)
       };
     })
   }

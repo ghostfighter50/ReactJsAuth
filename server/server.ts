@@ -11,12 +11,12 @@ const app = express()
 app.use(bodyParser.json())
 app.use(morgan('dev'))
 app.use(cors({
-  origin: [process.env.ORIGIN],
+  origin: [process.env.ORIGIN || 'http://localhost:3000'],
   methods: ['GET', 'POST', 'DELETE', 'PUT'],
   credentials: true
 }))
 app.use(session({
-  secret: process.env.SECRET,
+  secret: process.env.SECRET || 'S/oSc00terDanslaStaT!0N',
   saveUninitialized: true,
   resave: true,
   cookie: { maxAge: (60000 * 30) }

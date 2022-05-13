@@ -34,7 +34,7 @@ class Userdetail extends Component<{}, UserState> {
     super(props)
     const { userId } = useParams()
     const data = async () => {
-      await axios.get(`${process.env.API_URL || 'http:///localhost:'}:${process.env.API_PORT || 8000}/api/users/` + userId)
+      await axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/users/` + userId)
     }
     this.state = {
       UserInformations: data.toString()

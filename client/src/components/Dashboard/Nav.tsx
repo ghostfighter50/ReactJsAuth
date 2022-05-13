@@ -11,7 +11,7 @@ class Nav extends Component {
                   </Link>
                   <Link
                         className='btn btn-danger' to='/'
-                        onClick={() => axios.get(`${process.env.API_URL || 'http:///localhost:'}:${process.env.API_PORT || 8000}/api/logout`).then(() => null)}>
+                        onClick={() => axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/logout`).then(() => null)}>
                         Logout
                    </Link>
             </div>
