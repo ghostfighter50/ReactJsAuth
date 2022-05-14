@@ -36,7 +36,8 @@ export async function getAllUsers (req:Request, res:Response, next:NextFunction)
     }
     res.json(users)
   }
-  return res.json('Server error').sendStatus(500)
+  return res.status(500).json({ error: true, message : 'Internal Server Error' , IsAuthenticated: false , timestamp : new Date().toDateString()}
+  )
 }
 
 /**
@@ -60,7 +61,7 @@ export async function loginUser (req:Request, res:Response, next:NextFunction) {
       } else {
         req.session.user = user
         req.session.IsAuthenticated = true
-        return true// res.redirect(`${process.env.CLIENT_URL}:${process.env.CLIENT_PORT}/dashboard`)
+        return res.status(200).json({ IsAuthenticated: true }) 
       };
     })
   }
@@ -76,7 +77,7 @@ export async function logoutUser (req:Request, res:Response, next:NextFunction) 
       Logger(null, { type: 'Database', severity: 'low', content: `Log Out Error : ${error.message}` })
       return next()
     }
-    res.json({ ok: true })
+    return res.status(200).json({ IsAuthenticated: true , timestamp : new Date().toDateString() })
   })
 }
 /**
@@ -85,8 +86,9 @@ export async function logoutUser (req:Request, res:Response, next:NextFunction) 
  * @param  {NextFunction} next
  */
 export async function authenticateUser (req:Request, res:Response, next:NextFunction) {
-  if (req.session.IsAuthenticated === true) return next()
-  else { res.json({ error: 'Not authenticated' }).sendStatus(403); return res.redirect('/') }
+  if (req.session.IsAuthenticated === true) {res.send(req.session.IsAuthenticated);return next();}
+  else { return res.status(200).json({ error: true, message : 'Not authenticated' , IsAuthenticated: false , timestamp : new Date().toDateString()})
+}
 }
 /**
  * @param  {Request} req
@@ -100,10 +102,10 @@ export async function currentUser (req:Request, res:Response, next:NextFunction)
         Logger(null, { type: 'Database', severity: 'low', content: `Self Fetching Error : ${error.message}` })
         return next()
       }
-      return res.json({ user, IsAuthenticated: true })
+      return res.status(200).json({ user, IsAuthenticated: true })
     })
   }
-  res.json({ error: 'Not authenticated' }).sendStatus(403)
+  res.status(200).json({ error: true, message : 'Not authenticated' , IsAuthenticated: false , timestamp : new Date().toDateString()})
 }
 /**
  * @param  {Request} req
@@ -116,7 +118,7 @@ export async function findUser (req:Request, res:Response, next:NextFunction) {
       Logger(null, { type: 'Database', severity: 'low', content: `Find User Error : ${error.message}` })
       return next()
     }
-    res.json(user)
+    res.status(200).json(user)
   })
 }
 export const validationlogin = [

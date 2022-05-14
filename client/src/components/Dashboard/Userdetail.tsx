@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { useParams } from 'react-router'
 
 axios.defaults.withCredentials = true
 
@@ -29,10 +28,10 @@ function Detail (props:IUser) {
   )
 }
 
-class Userdetail extends Component<{}, UserState> {
+class Userdetail extends Component<{userId:any}, UserState> {
   constructor (props:any) {
     super(props)
-    const { userId } = useParams()
+    const { userId } = props
     const data = async () => {
       await axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/users/` + userId)
     }

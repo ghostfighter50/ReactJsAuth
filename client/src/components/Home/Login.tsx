@@ -1,15 +1,15 @@
 import React, { ChangeEvent, Component, FormEvent } from 'react'
 import axios from 'axios'
 
-interface IUser{
+interface IUserLogin{
   Name?:string
   email?:string,
   password?:string,
   message?:string,
   errors?:any,
 }
-export default class Login extends Component<IUser, IUser> {
-  constructor (state: IUser) {
+export default class Login extends Component<unknown, IUserLogin> {
+  constructor (state: IUserLogin) {
     super(state)
     this.state = {
       Name: '',

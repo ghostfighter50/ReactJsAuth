@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Users from './Users'
 import { Link } from 'react-router-dom'
+
 axios.defaults.withCredentials = true
 
-interface IUser{
+interface IUserRegister{
     Name:string,
     email:string,
     password:string,
@@ -13,8 +14,8 @@ interface IUser{
     error:string,
   }
 
-class Main extends Component<unknown, IUser> {
-  constructor (state: IUser) {
+class Main extends Component<unknown, IUserRegister> {
+  constructor (state: IUserRegister) {
     super(state)
     this.state = {
       Name: '',
@@ -42,7 +43,6 @@ class Main extends Component<unknown, IUser> {
   }
 
   render () {
-    this.GetData()
     if (this.state.error) {
       return (
             <div>
