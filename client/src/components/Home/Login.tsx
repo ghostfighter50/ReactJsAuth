@@ -1,4 +1,5 @@
 import React, { ChangeEvent, Component, FormEvent } from 'react'
+import { Navigate } from 'react-router-dom'
 import axios from 'axios'
 
 interface IUserLogin{
@@ -31,7 +32,8 @@ export default class Login extends Component<unknown, IUserLogin> {
     axios.post(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/login`, data, { timeout: 11000 }).then((res) => {
       if (res.data.errors) {
         return this.setState({ errors: res.data.errors })
-      }
+      } else if (res.data.IsAuthenticated === true) return <Navigate to='/dashboard'/>
+      else return this.setState({ errors: { password: { value: null, msg: 'Internal Server Error', param: 'password', location: 'body' } } })
     })
   }
 

@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 interface Props {
-    IsAuthenticated:boolean,
+    IsAuthenticated:boolean | null,
     children:any
 }
 

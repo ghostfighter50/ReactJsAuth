@@ -11,7 +11,7 @@ import { Logger } from '../Utilities/Logger'
  * @param  {Response} res
  * @param  {NextFunction} next
  */
-export async function createUser (req:Request, res:Response, next:NextFunction) {
+export async function createUser (req:Request, res:Response) {
   const user:any = new UsersSchemaModel(req.body)
   user.password = user.hashPassword(user.password)
   const errors = validationResult(req)
@@ -19,7 +19,7 @@ export async function createUser (req:Request, res:Response, next:NextFunction) 
     return res.send({ errors: errors.mapped() })
   } else {
     await user.save().catch((error:Error) => { return Logger(null, { type: 'Database', severity: 'low', content: `Saving Error : ${error.message}` }) })
-    return true// res.redirect(`${process.env.CLIENT_URL}:${process.env.CLIENT_PORT}/dashboard`)
+    return res.status(200).json({ IsAuthenticated: true })
   }
 }
 /**
@@ -28,16 +28,16 @@ export async function createUser (req:Request, res:Response, next:NextFunction) 
  * @param  {NextFunction} next
  */
 
-export async function getAllUsers (req:Request, res:Response, next:NextFunction) {
-  await UsersSchemaModel.find({}, ['Name', 'email']), (error:mongoose.Error, users:Array<IUserDocument>) => {
+export function getAllUsers (req:Request, res:Response) {
+  UsersSchemaModel.find({}, ['Name', 'email']), (error:mongoose.Error, users:Array<IUserDocument>) => {
+    console.log(users)
     if (error) {
       Logger(null, { type: 'Database', severity: 'low', content: `Fetching Users Error : ${error.message}` })
-      return next()
-    }
-    res.json(users)
-  }
-  return res.status(500).json({ error: true, message : 'Internal Server Error' , IsAuthenticated: false , timestamp : new Date().toDateString()}
+      return res.status(500).json({ error: true, message : 'Internal Server Error' , IsAuthenticated: false , timestamp : new Date().toDateString()}
   )
+    }
+    else return res.status(200).json(users)
+  }
 }
 
 /**
@@ -46,12 +46,12 @@ export async function getAllUsers (req:Request, res:Response, next:NextFunction)
  * @param  {NextFunction} next
  */
 
-export async function loginUser (req:Request, res:Response, next:NextFunction) {
+export function loginUser (req:Request, res:Response, next:NextFunction) {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.send({ errors: errors.mapped() })
   } else {
-    await UsersSchemaModel.findOne({ email: req.body.email }, (error:mongoose.Error, user:any) => {
+    UsersSchemaModel.findOne({ email: req.body.email }, (error:mongoose.Error, user:any) => {
       if (error) {
         Logger(null, { type: 'Database', severity: 'low', content: `Fetching User Error : ${error.message}` })
         return next()
@@ -61,8 +61,8 @@ export async function loginUser (req:Request, res:Response, next:NextFunction) {
       } else {
         req.session.user = user
         req.session.IsAuthenticated = true
-        return res.status(200).json({ IsAuthenticated: true }) 
-      };
+        res.status(200).json({ IsAuthenticated: true }) 
+      }
     })
   }
 }
@@ -71,12 +71,12 @@ export async function loginUser (req:Request, res:Response, next:NextFunction) {
  * @param  {Response} res
  * @param  {NextFunction} next
  */
-export async function logoutUser (req:Request, res:Response, next:NextFunction) {
+export function logoutUser (req:Request, res:Response) {
   req.session.destroy((error:Error) => {
     if (error) {
       Logger(null, { type: 'Database', severity: 'low', content: `Log Out Error : ${error.message}` })
-      return next()
-    }
+      return res.status(500).json({ error: true, message : 'Internal Server Error' , IsAuthenticated: null , timestamp : new Date().toDateString()}
+  )}
     return res.status(200).json({ IsAuthenticated: true , timestamp : new Date().toDateString() })
   })
 }
@@ -85,39 +85,39 @@ export async function logoutUser (req:Request, res:Response, next:NextFunction) 
  * @param  {Response} res
  * @param  {NextFunction} next
  */
-export async function authenticateUser (req:Request, res:Response, next:NextFunction) {
-  if (req.session.IsAuthenticated === true) {res.send(req.session.IsAuthenticated);return next();}
+export function authenticateUser (req:Request, res:Response, next:NextFunction) {
+  if (req.session.IsAuthenticated === true) {return next();}
   else { return res.status(200).json({ error: true, message : 'Not authenticated' , IsAuthenticated: false , timestamp : new Date().toDateString()})
-}
+  }
 }
 /**
  * @param  {Request} req
  * @param  {Response} res
  * @param  {NextFunction} next
  */
-export async function currentUser (req:Request, res:Response, next:NextFunction) {
+export function currentUser (req:Request, res:Response, next:NextFunction) {
   if (req.session.user) {
-    return await UsersSchemaModel.find({ _id: req.session.user._id }, ['Name', 'email']).exec((error:mongoose.Error, user:IUserDocument) => {
-      if (error) {
+    return UsersSchemaModel.find({ _id: req.session.user._id }, ['Name', 'email']).exec((error:mongoose.Error, user:IUserDocument) => {
+      if (error) { 
         Logger(null, { type: 'Database', severity: 'low', content: `Self Fetching Error : ${error.message}` })
         return next()
       }
       return res.status(200).json({ user, IsAuthenticated: true })
     })
   }
-  res.status(200).json({ error: true, message : 'Not authenticated' , IsAuthenticated: false , timestamp : new Date().toDateString()})
+  return res.status(200).json({ error: true, message : 'Not authenticated' , IsAuthenticated: false , timestamp : new Date().toDateString()})
 }
 /**
  * @param  {Request} req
  * @param  {Response} res
  * @param  {NextFunction} next
  */
-export async function findUser (req:Request, res:Response, next:NextFunction) {
-  await UsersSchemaModel.findOne({ _id: req.params.userId }, ['Name', 'email']).exec((user:IUserDocument, error:mongoose.Error) => {
+export function findUser (req:Request, res:Response) {
+  UsersSchemaModel.findOne({ _id: req.params.userId }, ['Name', 'email']).exec((user:IUserDocument, error:mongoose.Error) => {
     if (error) {
       Logger(null, { type: 'Database', severity: 'low', content: `Find User Error : ${error.message}` })
-      return next()
-    }
+      return res.status(500).json({ error: true, message : 'Internal Server Error' , IsAuthenticated: false , timestamp : new Date().toDateString()}
+  )}
     res.status(200).json(user)
   })
 }

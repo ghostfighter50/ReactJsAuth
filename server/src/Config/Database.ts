@@ -1,7 +1,7 @@
-/* eslint-disable n/no-path-concat */
 import mongoose = require('mongoose');
 import * as fs from 'fs'
 import { Logger } from '../Utilities/Logger'
+mongoose.set('debug', true);
 
 const DBconnect = () => {
   mongoose.connect('mongodb+srv://Ghostfighter50:ghostfighter50@website.jbukl.mongodb.net/ReactExpressLogin?retryWrites=true&w=majority', {

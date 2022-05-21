@@ -12,21 +12,22 @@ interface UserInfo{
 }
 
 interface UsersList {
-    Users:Array<UserInfo>
+    users:Array<any>
 }
 
 function Result (props:UsersList) {
+  console.log(props.users)
   let i = 0
-  if (!props.Users || !Array.isArray(props.Users)) {
+  if (props.users === [] && !Array.isArray(props.users)) {
     return (
             <tr>
-              <td><h1>No Users</h1></td>
+              <td><h1>No users</h1></td>
             </tr>
     )
   } else {
     return (
     <>
-        {props.Users.map((user) => {
+        {props.users.map((user) => {
           return (
     <tr>
       <th scope="row">{i++}</th>
@@ -45,17 +46,19 @@ class Users extends Component<UserInfo, UsersList> {
   constructor (props:UserInfo) {
     super(props)
     this.state = {
-      Users: []
+      users: []
     }
   }
 
   componentDidMount () {
-    axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/Users/`).then(Users => {
-      this.setState({ Users: Users.data })
+    axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/users/`).then(res => {
+      console.log(res.data)
+      this.setState({ users: res.data })
     })
   }
 
   render () {
+    console.log(this.state.users)
     return (
             <div className='jumbotron table-responsive'>
             <table className="table ">
@@ -67,7 +70,7 @@ class Users extends Component<UserInfo, UsersList> {
             </tr>
             </thead>
             <tbody>
-            {this.state.Users && <Result Users = {this.state.Users} />}
+            {this.state.users && <Result users = {this.state.users} />}
             </tbody>
             </table>
             <Nav/>

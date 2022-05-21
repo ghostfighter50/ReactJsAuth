@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import Users from './Users'
 import { Link } from 'react-router-dom'
 
@@ -30,7 +30,8 @@ class Main extends Component<unknown, IUserRegister> {
 
   GetData ():void {
     axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/currentUser`)
-      .then((res) => {
+      .then((res:AxiosResponse) => {
+        console.log(res.data.IsAuthenticated)
         if (res.data.IsAuthenticated) {
           this.setState({ Name: res.data.Name })
           this.setState({ email: res.data.email })
