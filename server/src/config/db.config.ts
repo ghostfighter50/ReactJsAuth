@@ -2,7 +2,6 @@
 import mongoose = require('mongoose');
 import * as fs from 'fs'
 import { Logger } from '../helpers/logger.helper'
-mongoose.set('debug', true)
 
 const DBconnect = () => {
   mongoose.connect('mongodb+srv://Ghostfighter50:ghostfighter50@website.jbukl.mongodb.net/Typescript-API?retryWrites=true&w=majority', {

@@ -15,7 +15,6 @@ export const ResgisterUser = async (req:Request, res:Response) => {
   }
 }
 export const LoginUser = async (req:Request, res:Response) => {
-  console.log(req.body)
   const ValidationErrors = validationResult(req)
   if (!ValidationErrors.isEmpty()) return res.send({ errors: ValidationErrors.mapped() })
   else {
@@ -47,7 +46,6 @@ export const LogoutUser = (req:Request, res:Response) => {
 export const FetchUsers = async (req:Request, res:Response) => {
   try {
     const Users:IUserDocument = await UsersSchemaModel.find({}, ['name', 'email'])
-    console.log(Users)
     return res.send(Users)
   } catch (error:unknown) {
     Logger(null, { type: 'Database', severity: 'low', content: `Fetch Users Error : ${error}` })
