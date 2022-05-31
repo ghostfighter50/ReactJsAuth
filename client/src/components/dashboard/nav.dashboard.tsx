@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
-class Nav extends Component {
+import AuthService from '../../services/auth.service'
+export default class DashboardNav extends Component {
   render () {
     return (
             <div>
@@ -11,7 +11,7 @@ class Nav extends Component {
                   </Link>
                   <Link
                         className='btn btn-danger' to='/'
-                        onClick={() => axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/logout`).then(() => null)}>
+                        onClick={() => new AuthService().LogoutUser()}>
                         Logout
                    </Link>
             </div>
@@ -19,5 +19,3 @@ class Nav extends Component {
     )
   }
 }
-
-export default Nav

@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import axios, { AxiosResponse } from 'axios'
-import Users from './Users'
+import Users from './users.dashboard'
 import { Link } from 'react-router-dom'
 
 axios.defaults.withCredentials = true
 
 interface IUserRegister{
-    Name:string,
+    name:string,
     email:string,
     password:string,
     passwordValidation:string,
@@ -14,11 +14,11 @@ interface IUserRegister{
     error:string,
   }
 
-class Main extends Component<unknown, IUserRegister> {
+export default class DashboardMain extends Component<unknown, IUserRegister> {
   constructor (state: IUserRegister) {
     super(state)
     this.state = {
-      Name: '',
+      name: '',
       email: '',
       password: '',
       message: '',
@@ -33,7 +33,7 @@ class Main extends Component<unknown, IUserRegister> {
       .then((res:AxiosResponse) => {
         console.log(res.data.IsAuthenticated)
         if (res.data.IsAuthenticated) {
-          this.setState({ Name: res.data.Name })
+          this.setState({ name: res.data.name })
           this.setState({ email: res.data.email })
           this.setState({ password: res.data.passwordValidation })
           this.setState({ passwordValidation: res.data.password })
@@ -54,10 +54,8 @@ class Main extends Component<unknown, IUserRegister> {
     }
     return (
             <div >
-              {{ Name: this.state.Name, email: this.state.email, password: this.state.password, passwordValidation: this.state.passwordValidation } && <Users/>}
+              {{ name: this.state.name, email: this.state.email, password: this.state.password, passwordValidation: this.state.passwordValidation } && <Users/>}
             </div>
     )
   }
 }
-
-export default Main

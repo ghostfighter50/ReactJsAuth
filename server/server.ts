@@ -3,17 +3,13 @@ import session from 'express-session'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import morgan from 'morgan'
-import fs from 'fs'
-import DBconnect from './src/Config/Database'
-import router from './src/Routes/Auth'
-import { Logger } from './src/Utilities/Logger'
+import DBconnect from './src/Config/db.config'
+import router from './src/routes/auth.route'
+import { Logger } from './src/helpers/logger.helper'
 DBconnect()
 const app = express()
 app.use(bodyParser.json())
-app.use(morgan('common', {
-  stream: fs.createWriteStream('./logs/access.log', {flags: 'a+'}),
-  
-}))
+app.use(morgan('tiny'))
 app.use(cors({
   origin: [process.env.ORIGIN || 'http://localhost:3000'],
   methods: ['GET', 'POST', 'DELETE', 'PUT'],

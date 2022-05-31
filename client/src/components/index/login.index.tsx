@@ -1,23 +1,25 @@
 import React, { ChangeEvent, Component, FormEvent } from 'react'
 import { Navigate } from 'react-router-dom'
-import axios from 'axios'
+import AuthService from '../../services/auth.service'
 
 interface IUserLogin{
-  Name?:string
+  name?:string
   email?:string,
   password?:string,
   message?:string,
   errors?:any,
+  IsAuthenticated?:boolean
 }
-export default class Login extends Component<unknown, IUserLogin> {
+export default class IndexLogin extends Component<unknown, IUserLogin> {
   constructor (state: IUserLogin) {
     super(state)
     this.state = {
-      Name: '',
+      name: '',
       email: '',
       password: '',
       message: '',
-      errors: null
+      errors: null,
+      IsAuthenticated: undefined
     }
     this.submitHandler = this.submitHandler.bind(this)
     this.changeHandler = this.changeHandler.bind(this)
@@ -29,11 +31,9 @@ export default class Login extends Component<unknown, IUserLogin> {
       email: this.state.email,
       password: this.state.password
     }
-    axios.post(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/login`, data, { timeout: 11000 }).then((res) => {
-      if (res.data.errors) {
-        return this.setState({ errors: res.data.errors })
-      } else if (res.data.IsAuthenticated === true) return <Navigate to='/dashboard'/>
-      else return this.setState({ errors: { password: { value: null, msg: 'Internal Server Error', param: 'password', location: 'body' } } })
+    new AuthService().LoginUser(data).then(results => {
+      this.setState({ errors: results.errors })
+      this.setState({ IsAuthenticated: results.IsAuthenticated })
     })
   }
 
@@ -49,10 +49,12 @@ export default class Login extends Component<unknown, IUserLogin> {
     return (
 
 <div className="modal " id="LoginModal" tabIndex={-1} role="dialog" aria-labelledby="LoginModal" aria-hidden="true">
+{this.state.IsAuthenticated === true && <Navigate to="dashboard" replace/>}
   <div className="modal-dialog" role="document">
     <div className="modal-content">
       <div className="modal-header">
         <h5 className="modal-title" >Login</h5>
+        {this.state.message && <div className="alert alert-success" role="alert">{this.state.message}</div>}
         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

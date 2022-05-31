@@ -1,41 +1,19 @@
-import React, { ReactElement, useState } from 'react'
-import { BrowserRouter as Router, Navigate, Route, Routes, useParams } from 'react-router-dom'
-import Home from './components/Home/Home'
-import Main from './components/Dashboard/Main'
-import Userdetail from './components/Dashboard/Userdetail'
-import axios, { AxiosResponse } from 'axios'
-import Protected from './components/Dashboard/Protected'
+import React, { ReactElement } from 'react'
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
+import IndexMain from './components/index/main.index'
+import DashboardMain from './components/dashboard/main.dashboard'
+import DashboardDetails from './components/dashboard/details.dashboard'
 export default function App ():ReactElement {
-  const params = useParams()
-  const [IsAuthenticated, setAuthenticated] = useState<any>(null)
-  const CheckAuthentication = async () => {
-    await axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/session`).then((res:AxiosResponse) => {
-      if (res.data.IsAuthenticated === true) {
-        setAuthenticated(true)
-        return IsAuthenticated
-      }
-    })
-  }
-  CheckAuthentication()
-
   return (
       <Router>
           <Routes>
-            <Route path='/' element={<Home/>}/>
-            <Route path='/dashboard' element={
-            <Protected IsAuthenticated={IsAuthenticated}>
-            <Main/>
-            </Protected>
-            }/>
-            <Route path='/user/:userId' element={
-            <Protected IsAuthenticated={IsAuthenticated}>
-            <Userdetail userId={params}/>
-            </Protected>
-            }/>
+            <Route path='/' element={<IndexMain/>}/>
+            <Route path='/dashboard' element={<DashboardMain/>}/>
+            <Route path='user/:userId' element={<DashboardDetails/>}/>
             <Route
             path="*"
             element={<Navigate to="/" replace />}
-        />
+            />
           </Routes>
       </Router>
   )

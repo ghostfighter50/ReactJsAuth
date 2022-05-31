@@ -1,11 +1,10 @@
-/* eslint-disable react/jsx-key */
 import React, { Component } from 'react'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
-import Nav from './Nav'
+import DashboardNav from './nav.dashboard'
+import $ from 'jquery'
+import UsersService from './../../services/users.service'
 
 interface UserInfo{
-    Name?: string,
+    name?: string,
     email?: string,
     password?:string,
     _id?: string
@@ -15,10 +14,9 @@ interface UsersList {
     users:Array<any>
 }
 
-function Result (props:UsersList) {
-  console.log(props.users)
-  let i = 0
-  if (props.users === [] && !Array.isArray(props.users)) {
+function DashboardTable (props:UsersList) {
+  let i = 1
+  if (props.users === null && !Array.isArray(props.users)) {
     return (
             <tr>
               <td><h1>No users</h1></td>
@@ -29,10 +27,10 @@ function Result (props:UsersList) {
     <>
         {props.users.map((user) => {
           return (
-    <tr>
+    <tr key={user.name}>
       <th scope="row">{i++}</th>
-      <td>{user.Name}</td>
-      <td><Link className='btn btn-success' to={'/user/' + user._id}>More Details</Link></td>
+      <td>{user.name}</td>
+      <td><a className='btn btn-success' href={'/user/' + user._id}>More Details</a></td>
     </tr>
           )
         })
@@ -42,7 +40,7 @@ function Result (props:UsersList) {
   }
 }
 
-class Users extends Component<UserInfo, UsersList> {
+export default class DashboardUsers extends Component<UserInfo, UsersList> {
   constructor (props:UserInfo) {
     super(props)
     this.state = {
@@ -51,14 +49,13 @@ class Users extends Component<UserInfo, UsersList> {
   }
 
   componentDidMount () {
-    axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/users/`).then(res => {
-      console.log(res.data)
-      this.setState({ users: res.data })
+    $('.modal-backdrop').remove()
+    new UsersService().FetchUsers().then(data => {
+      this.setState({ users: data })
     })
   }
 
   render () {
-    console.log(this.state.users)
     return (
             <div className='jumbotron table-responsive'>
             <table className="table ">
@@ -70,13 +67,11 @@ class Users extends Component<UserInfo, UsersList> {
             </tr>
             </thead>
             <tbody>
-            {this.state.users && <Result users = {this.state.users} />}
+            {this.state.users && <DashboardTable users = {this.state.users} />}
             </tbody>
             </table>
-            <Nav/>
+            <DashboardNav/>
             </div>
     )
   }
 }
-
-export default Users

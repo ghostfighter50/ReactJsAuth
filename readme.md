@@ -13,8 +13,6 @@ Full stack Authentication system (Login, Register) made with typescript, react a
 
 - User roles (eg: admin or moderator)
 
-- Cleaner frontend (Hopefully)
-
 
 ## Badges
 

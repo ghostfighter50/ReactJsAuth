@@ -1,10 +1,7 @@
-import chalk = require('chalk')
+import chalk from 'chalk'
 /**
- * @param  {{type:string} message?
- * @param  {string}} content
- * @param  {{content:string} error?
- * @param  {`Database`|`Authentication`|`Miscellaneous`} type
- * @param  {`low`|`medium`|`high`}} severity
+ * @param {{type: string;}} message ?
+ * @param {{content: string;}} error ?
  */
 export function Logger (message? : {type:string, content:string}, error?: {content:string, type: 'Database' | 'Authentication' | 'Miscellaneous', severity : 'low' | 'medium' | 'high'}):void {
   let LogMessage:string
