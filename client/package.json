@@ -5,6 +5,7 @@
   "dependencies": {
     "@types/jquery": "^3.5.14",
     "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
     "jquery": "^3.6.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
