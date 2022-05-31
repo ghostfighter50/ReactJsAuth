@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'dotenv/config'
+// import 'dotenv/config'
 import './index.css'
 import App from './App'
 
