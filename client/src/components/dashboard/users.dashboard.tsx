@@ -58,6 +58,7 @@ export default class DashboardUsers extends Component<UserInfo, UsersList> {
   render () {
     return (
             <div className='jumbotron table-responsive'>
+              <h1 className='text-center'>Users list</h1><br></br>
             <table className="table ">
             <thead className="thead-dark">
             <tr>

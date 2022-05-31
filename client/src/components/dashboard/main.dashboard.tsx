@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import axios, { AxiosResponse } from 'axios'
-import Users from './users.dashboard'
-import { Link } from 'react-router-dom'
-
-axios.defaults.withCredentials = true
+import DashboardUsers from './users.dashboard'
+import UsersService from './../../services/users.service'
 
 interface IUserRegister{
     name:string,
@@ -25,21 +22,16 @@ export default class DashboardMain extends Component<unknown, IUserRegister> {
       passwordValidation: '',
       error: ''
     }
-    this.GetData = this.GetData.bind(this)
   }
 
-  GetData ():void {
-    axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/currentUser`)
-      .then((res:AxiosResponse) => {
-        console.log(res.data.IsAuthenticated)
-        if (res.data.IsAuthenticated) {
-          this.setState({ name: res.data.name })
-          this.setState({ email: res.data.email })
-          this.setState({ password: res.data.passwordValidation })
-          this.setState({ passwordValidation: res.data.password })
-          return true
-        }
-        return this.setState({ error: res.data.err, message: res.data.message })
+  componentDidMount () {
+    new UsersService().GetCurrentUser()
+      .then((data) => {
+        this.setState({ name: data.name })
+        this.setState({ email: data.email })
+        this.setState({ password: data.passwordValidation })
+        this.setState({ passwordValidation: data.password })
+        this.setState({ error: data.err, message: data.message })
       })
   }
 
@@ -48,13 +40,13 @@ export default class DashboardMain extends Component<unknown, IUserRegister> {
       return (
             <div>
             <p>{this.state.message}</p>
-            <Link to="/">Go Home</Link>
+            <a href="/">Go Home</a>
             </div>
       )
     }
     return (
             <div >
-              {{ name: this.state.name, email: this.state.email, password: this.state.password, passwordValidation: this.state.passwordValidation } && <Users/>}
+              {{ name: this.state.name, email: this.state.email, password: this.state.password, passwordValidation: this.state.passwordValidation } && <DashboardUsers/>}
             </div>
     )
   }

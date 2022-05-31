@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import AuthService from '../../services/auth.service'
 export default class DashboardNav extends Component {
   render () {
     return (
             <div>
-            <div className="align-center">
-                  <Link className='btn btn-dark' to='/dashboard'>
+            <div className="align-center btn-block">
+                  <a className='btn btn-dark' href='/dashboard'>
                         Home
-                  </Link>
-                  <Link
-                        className='btn btn-danger' to='/'
+                  </a>
+                  <a
+                        className='btn btn-danger mr-1' href='/'
                         onClick={() => new AuthService().LogoutUser()}>
                         Logout
-                   </Link>
+                   </a>
             </div>
             </div>
     )

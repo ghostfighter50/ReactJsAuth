@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import UsersService from './../../services/users.service'
 
@@ -31,11 +31,8 @@ export default function DashboardDetails () {
       setUserInformations(data)
     })
   }, [userId])
-  const renderCounter = useRef(0)
-  renderCounter.current = renderCounter.current + 1
   return (
             <div>
-            <h1>Renders: {renderCounter.current}</h1>
             {UserInformations && <Detail {...UserInformations} />}
             </div>
   )

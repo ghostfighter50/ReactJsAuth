@@ -11,7 +11,7 @@ Full stack Authentication system (Login, Register) made with typescript, react a
 
 - Dashboard (Blog system)
 
-- User roles (eg: admin or moderator)
+- User roles (eg: admin)
 
 
 ## Badges
