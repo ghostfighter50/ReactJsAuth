@@ -39,7 +39,7 @@ Add badges from somewhere like: [shields.io](https://shields.io/)
 
 #### Get item
 
-```http
+```
   POST /api/login
 ```
 
