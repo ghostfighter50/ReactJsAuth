@@ -83,7 +83,6 @@ export const validationLogin = [
     .isEmail().withMessage('Email should be an email address'),
   check('password')
     .not().isEmpty().withMessage('Password is required')
-    // .not().exists().withMessage('Password is null')
 ]
 export const validationRegister = [
   check('email')

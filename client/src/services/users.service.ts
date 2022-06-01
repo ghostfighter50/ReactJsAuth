@@ -18,7 +18,7 @@ export default class UsersService {
   }
 
   async GetSession () {
-    const res = await axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/session`)
+    const res = await axios.get(`${process.env.API_URL || 'http:///localhost'}:${process.env.API_PORT || 8000}/api/auth`)
     return res.data
   }
 }

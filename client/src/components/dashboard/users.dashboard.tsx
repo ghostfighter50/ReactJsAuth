@@ -2,19 +2,9 @@ import React, { Component } from 'react'
 import DashboardNav from './nav.dashboard'
 import $ from 'jquery'
 import UsersService from './../../services/users.service'
+import { IUsersList, IUserUsers } from './../../interfaces/dashboard.interfaces'
 
-interface UserInfo{
-    name?: string,
-    email?: string,
-    password?:string,
-    _id?: string
-}
-
-interface UsersList {
-    users:Array<any>
-}
-
-function DashboardTable (props:UsersList) {
+function DashboardTable (props:IUsersList) {
   let i = 1
   if (props.users === null && !Array.isArray(props.users)) {
     return (
@@ -40,8 +30,8 @@ function DashboardTable (props:UsersList) {
   }
 }
 
-export default class DashboardUsers extends Component<UserInfo, UsersList> {
-  constructor (props:UserInfo) {
+export default class DashboardUsers extends Component<IUserUsers, IUsersList> {
+  constructor (props:IUserUsers) {
     super(props)
     this.state = {
       users: []

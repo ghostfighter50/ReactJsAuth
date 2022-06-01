@@ -1,17 +1,9 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react'
 import AuthService from '../../services/auth.service'
+import { IUserRegister } from '../../interfaces/index.interfaces'
 
-interface IUser{
-  name?: string,
-  email?:string,
-  password?:string,
-  passwordValidation?:string,
-  message?:any,
-  errors?:any,
-}
-
-export default class IndexRegister extends Component<IUser, IUser> {
-  constructor (state: IUser) {
+export default class IndexRegister extends Component<IUserRegister, IUserRegister> {
+  constructor (state: IUserRegister) {
     super(state)
     this.state = {
       name: '',

@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import UsersService from './../../services/users.service'
+import { IUserDashboard } from './../../interfaces/dashboard.interfaces'
 
-interface IUser {
-    name:string,
-    email:string,
-    userId:string,
-}
-
-function Detail (props:IUser) {
+function Detail (props:IUserDashboard) {
   return (
          <div className="card">
                 <div className="card-header">

@@ -47,13 +47,13 @@ Full stack Authentication system (Login, Register) made with typescript, react a
 | `password`      | `string` | **Required**. User's password |
 
 ```
-  GET /api/logout //logs out current session
+  GET /api/logout //logs out current auth
 ```
 ```
   GET /api/currentUser //Returns User's data
 ```
 ```
-  GET /api/session //returns user's session
+  GET /api/auth //returns user's auth
 ```
 ```
   GET /api/users //returns all the data of the users

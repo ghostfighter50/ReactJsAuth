@@ -9,7 +9,7 @@ router.get('/users', authUser, usersController.FetchUsers)
 router.get('/user/:userId', authUser, usersController.FetchUser)
 router.post('/login', usersController.validationLogin, usersController.LoginUser)
 router.get('/currentUser', authUser, usersController.currentUser)
-router.get('/session', authUser, (req:Request, res:Response) => { return res.status(200).json({ session: req.session.user, IsAuthenticated: req.session.IsAuthenticated }) })
+router.get('/auth', authUser, (req:Request, res:Response) => { return res.status(200).json({ IsAuthenticated: req.session.IsAuthenticated }) })
 router.get('/logout', usersController.LogoutUser)
 router.use('/*', (req:Request, res:Response) => { return res.status(200).json({ error: true, message: 'Unknown API route' }) })
 

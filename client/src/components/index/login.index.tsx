@@ -1,15 +1,8 @@
 import React, { ChangeEvent, Component, FormEvent } from 'react'
 import { Navigate } from 'react-router-dom'
 import AuthService from '../../services/auth.service'
+import { IUserLogin } from '../../interfaces/index.interfaces'
 
-interface IUserLogin{
-  name?:string
-  email?:string,
-  password?:string,
-  message?:string,
-  errors?:any,
-  IsAuthenticated?:boolean
-}
 export default class IndexLogin extends Component<unknown, IUserLogin> {
   constructor (state: IUserLogin) {
     super(state)
