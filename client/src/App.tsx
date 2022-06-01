@@ -9,9 +9,9 @@ export default function App ():ReactElement {
   return (
       <Router>
           <Routes>
-            <Route path='/manage' element={<PrivateRoute/>}>
-              <Route path='users' element={<DashboardMain/>}/>
-              <Route path='user/:userId' element={<DashboardDetails/>}/>
+            <Route path='/users' element={<PrivateRoute/>}>
+              <Route path=':userId' element={<DashboardDetails/>}/>
+              <Route path='' element={<DashboardMain/>}/>
             </Route>
             <Route path='/' element={<PublicRoute/>}>
               <Route path='' element={<IndexMain/>}/>

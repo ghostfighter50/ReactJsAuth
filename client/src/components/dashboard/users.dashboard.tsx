@@ -30,7 +30,7 @@ function DashboardTable (props:UsersList) {
     <tr key={user.name}>
       <th scope="row">{i++}</th>
       <td>{user.name}</td>
-      <td><a className='btn btn-success' href={'/user/' + user._id}>More Details</a></td>
+      <td><a className='btn btn-success' href={'/users/' + user._id}>More Details</a></td>
     </tr>
           )
         })

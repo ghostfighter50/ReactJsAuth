@@ -49,7 +49,7 @@ export default class IndexLogin extends Component<unknown, IUserLogin> {
     return (
 
 <div className="modal " id="LoginModal" tabIndex={-1} role="dialog" aria-labelledby="LoginModal" aria-hidden="true">
-{this.state.IsAuthenticated === true && <Navigate to="/manage/users" replace/>}
+{this.state.IsAuthenticated === true && <Navigate to="/users" replace/>}
   <div className="modal-dialog" role="document">
     <div className="modal-content">
       <div className="modal-header">

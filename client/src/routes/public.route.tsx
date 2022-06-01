@@ -15,7 +15,7 @@ const PublicRoute:any = () => {
     return <div>Loading...</div>
   }
   if (IsAuthenticated === true) {
-    return <Navigate to="/manage/users" replace />
+    return <Navigate to="/users" replace />
   } else {
     return <>{<Outlet/>}</>
   }
