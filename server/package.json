@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "ts-node .",
-    "build": "tsc"
+    "build": "tsc && node ./server.js"
     "lint": "npx eslint --fix --ext .ts,.tsx ."
   },
   "proxy": "http://localhost:3000",
