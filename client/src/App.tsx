@@ -8,7 +8,7 @@ export default function App ():ReactElement {
       <Router>
           <Routes>
             <Route path='/' element={<IndexMain/>}/>
-            <Route path='/dashboard' element={<DashboardMain/>}/>
+            <Route path='/users' element={<DashboardMain/>}/>
             <Route path='user/:userId' element={<DashboardDetails/>}/>
             <Route
             path="*"
