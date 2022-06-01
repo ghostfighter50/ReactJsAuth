@@ -6,13 +6,13 @@ const PrivateRoute:any = () => {
   const [isLoading, setLoading] = useState<boolean>(true)
   const [IsAuthenticated, setIsAuthenticated] = useState<boolean | undefined>(undefined)
   useEffect(() => {
-    new UsersService().GetSession().then(data => {
+    new UsersService().GetCurrentUser().then(data => {
       setIsAuthenticated(data.IsAuthenticated)
       setLoading(false)
     })
   }, [])
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div className='display-1 text-center text-white'>Loading...</div>
   }
   if (IsAuthenticated === true) {
     return <>{<Outlet/>}</>

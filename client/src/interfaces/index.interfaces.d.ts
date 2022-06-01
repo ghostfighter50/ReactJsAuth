@@ -1,4 +1,4 @@
-export interface IUserLogin{
+export interface IUserLogin {
     name?:string
     email?:string,
     password?:string,
@@ -6,7 +6,7 @@ export interface IUserLogin{
     errors?:any,
     IsAuthenticated?:boolean
   }
-export interface IUserRegister{
+export interface IUserRegister {
     name?: string,
     email?:string,
     password?:string,

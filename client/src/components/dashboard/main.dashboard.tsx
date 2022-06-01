@@ -1,18 +1,10 @@
 import React, { Component } from 'react'
 import DashboardUsers from './users.dashboard'
 import UsersService from './../../services/users.service'
+import { IUserMain } from './../../interfaces/dashboard.interfaces'
 
-interface IUserRegister{
-    name:string,
-    email:string,
-    password:string,
-    passwordValidation:string,
-    message:string,
-    error:string,
-  }
-
-export default class DashboardMain extends Component<unknown, IUserRegister> {
-  constructor (state: IUserRegister) {
+export default class DashboardMain extends Component<unknown, IUserMain> {
+  constructor (state: IUserMain) {
     super(state)
     this.state = {
       name: '',

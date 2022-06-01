@@ -6,7 +6,8 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 // import 'dotenv/config'
 import DBconnect from './src/Config/db.config'
-import router from './src/routes/auth.route'
+import AuthRouter from './src/routes/auth.route'
+import UserRouter from './src/routes/users.route'
 import { Logger } from './src/helpers/logger.helper'
 DBconnect()
 const app = express()
@@ -24,6 +25,8 @@ app.use(session({
   resave: true,
   cookie: { maxAge: (60000 * 30) }
 }))
-app.use('/api', router)
+app.use('/api/auth', AuthRouter)
+app.use('/api/users', UserRouter)
+
 app.listen(process.env.PORT || 8000, () => { console.clear(); Logger({ type: 'Server', content: `Server Running on port ${process.env.PORT || 8000}` }) }
 )

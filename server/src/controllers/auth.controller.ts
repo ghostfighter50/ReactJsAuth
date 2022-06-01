@@ -11,7 +11,7 @@ export const RegisterUser = async (req:Request, res:Response) => {
     const user:IUserDocument = new UsersSchemaModel(req.body)
     user.password = user.hashPassword(user.password)
     await user.save().catch((error:mongoose.Error) => { return Logger(null, { type: 'Database', severity: 'low', content: `Saving Error : ${error.message}` }) })
-    return res.status(200).json({ message: 'Registration successful', IsAuthenticated: true, timestamp: Date.now() })
+    return res.json({ message: 'Registration successful', IsAuthenticated: true, timestamp: Date.now() })
   }
 }
 export const LoginUser = async (req:Request, res:Response) => {
@@ -28,7 +28,7 @@ export const LoginUser = async (req:Request, res:Response) => {
       else {
         req.session.user = user
         req.session.IsAuthenticated = true
-        return res.status(200).json({ message: 'Authentication successful', IsAuthenticated: true, timestamp: Date.now() })
+        return res.json({ message: 'Authentication successful', IsAuthenticated: true, timestamp: Date.now() })
       }
     })
   }
@@ -37,47 +37,19 @@ export const LogoutUser = (req:Request, res:Response) => {
   req.session.destroy((error:Error) => {
     if (error) {
       Logger(null, { type: 'Database', severity: 'low', content: `Log Out Error : ${error.message}` })
-      return res.status(500).json({ error: true, message: 'Internal Server Error', IsAuthenticated: null, timestamp: Date.now() }
+      return res.json({ error: true, message: 'Internal Server Error', IsAuthenticated: null, timestamp: Date.now() }
       )
     }
-    return res.status(200).json({ IsAuthenticated: true, timestamp: Date.now() })
+    return res.json({ IsAuthenticated: true, timestamp: Date.now() })
   })
 }
-export const FetchUsers = async (req:Request, res:Response) => {
-  try {
-    const Users:IUserDocument = await UsersSchemaModel.find({}, ['name', 'email'])
-    return res.send(Users)
-  } catch (error:unknown) {
-    Logger(null, { type: 'Database', severity: 'low', content: `Fetch Users Error : ${error}` })
-    return res.status(500).json({ error: true, message: 'Internal Server Error', IsAuthenticated: null, timestamp: Date.now() })
-  }
-}
-export const FetchUser = async (req:Request, res:Response) => {
-  try {
-    const User:IUserDocument = await UsersSchemaModel.findOne({ _id: req.params.userId }, ['name', 'email'])
-    return res.send(User)
-  } catch (error:unknown) {
-    Logger(null, { type: 'Database', severity: 'low', content: `Fetch User Error : ${error}` })
-    return res.status(500).json({ error: true, message: 'Internal Server Error', IsAuthenticated: null, timestamp: Date.now() })
-  }
-}
+
 export const CheckAuthentication = async (req:Request, res:Response, next:NextFunction) => {
   if (req.session.IsAuthenticated === true) { return next() } else {
-    return res.status(200).json({ error: true, message: 'Not authenticated', IsAuthenticated: false, timestamp: new Date().toDateString() })
+    return res.json({ error: true, message: 'Not authenticated', IsAuthenticated: false, timestamp: new Date().toDateString() })
   }
 }
-export const currentUser = async (req:Request, res:Response, next:NextFunction) => {
-  if (req.session.user) {
-    return UsersSchemaModel.find({ _id: req.session.user._id }, ['name', 'email']).exec((error:mongoose.Error, user:IUserDocument) => {
-      if (error) {
-        Logger(null, { type: 'Database', severity: 'low', content: `Self Fetching Error : ${error.message}` })
-        return next()
-      }
-      return res.status(200).json({ user, IsAuthenticated: true })
-    })
-  }
-  return res.status(200).json({ error: true, message: 'Not authenticated', IsAuthenticated: false, timestamp: new Date().toDateString() })
-}
+
 export const validationLogin = [
   check('email').not().isEmpty().withMessage('Email is required')
     .isEmail().withMessage('Email should be an email address'),

@@ -5,6 +5,7 @@ export interface IUserDocument extends Document {
   name: string,
   email: string,
   password:string,
+  roles: ['USER'| 'BANNED' | 'ADMIN'],
   createdAt:Date,
   updatedAt:Date,
   hashPassword(password:string):string,
@@ -23,11 +24,16 @@ export const UserSchema = new Schema<IUserDocument>({
     type: String,
     required: true
   },
+  roles: {
+    type: [String],
+    // eslint-disable-next-line quotes
+    default: ["USER"]
+  },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now()
   },
-  updatedAt: { type: Date, default: Date.now }
+  updatedAt: { type: Date, default: Date.now() }
 })
 
 UserSchema.methods.hashPassword = (password:string) => {

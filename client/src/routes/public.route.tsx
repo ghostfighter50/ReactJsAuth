@@ -12,7 +12,7 @@ const PublicRoute:any = () => {
     })
   }, [])
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div className='display-1 text-center text-white'>Loading...</div>
   }
   if (IsAuthenticated === true) {
     return <Navigate to="/users" replace />

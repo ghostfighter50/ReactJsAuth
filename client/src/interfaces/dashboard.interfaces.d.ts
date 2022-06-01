@@ -13,3 +13,12 @@ export interface IUserUsers{
 export interface IUsersList {
     users:Array<any>
 }
+
+export interface IUserMain {
+    name:string,
+    email:string,
+    password:string,
+    passwordValidation:string,
+    message:string,
+    error:string,
+}

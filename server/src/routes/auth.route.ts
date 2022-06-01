@@ -1,16 +1,12 @@
-import * as usersController from '../controllers/user.controller'
+import * as usersController from '../controllers/auth.controller'
 import { Request, Response, Router } from 'express'
 const authUser = usersController.CheckAuthentication
-const router = Router()
+const AuthRouter = Router()
 
-router.get('/ping', (req:Request, res:Response) => res.send('poing'))
-router.post('/register', usersController.validationRegister, usersController.RegisterUser)
-router.get('/users', authUser, usersController.FetchUsers)
-router.get('/user/:userId', authUser, usersController.FetchUser)
-router.post('/login', usersController.validationLogin, usersController.LoginUser)
-router.get('/currentUser', authUser, usersController.currentUser)
-router.get('/auth', authUser, (req:Request, res:Response) => { return res.status(200).json({ IsAuthenticated: req.session.IsAuthenticated }) })
-router.get('/logout', usersController.LogoutUser)
-router.use('/*', (req:Request, res:Response) => { return res.status(200).json({ error: true, message: 'Unknown API route' }) })
+AuthRouter.get('/', authUser, (req:Request, res:Response) => { return res.status(200).json({ IsAuthenticated: req.session.IsAuthenticated }) })
+AuthRouter.post('/register', usersController.validationRegister, usersController.RegisterUser)
+AuthRouter.post('/login', usersController.validationLogin, usersController.LoginUser)
+AuthRouter.get('/logout', usersController.LogoutUser)
+AuthRouter.use('/*', (req:Request, res:Response) => { return res.status(200).json({ error: true, message: 'Unknown API route' }) })
 
-export default router
+export default AuthRouter
