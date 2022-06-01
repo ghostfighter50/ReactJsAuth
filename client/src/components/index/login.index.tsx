@@ -49,7 +49,7 @@ export default class IndexLogin extends Component<unknown, IUserLogin> {
     return (
 
 <div className="modal " id="LoginModal" tabIndex={-1} role="dialog" aria-labelledby="LoginModal" aria-hidden="true">
-{this.state.IsAuthenticated === true && <Navigate to="dashboard" replace/>}
+{this.state.IsAuthenticated === true && <Navigate to="/manage/users" replace/>}
   <div className="modal-dialog" role="document">
     <div className="modal-content">
       <div className="modal-header">
@@ -62,12 +62,12 @@ export default class IndexLogin extends Component<unknown, IUserLogin> {
       <div className="modal-body">
       <form onSubmit={this.submitHandler}>
             <div className="form-group">
-            {this.state.errors && this.state.errors.email && <div className="alert alert-danger" role="alert">{this.state.errors.email.msg}</div>}
+            {this.state.errors && this.state.errors.email && <div className="alert alert-danger" role="alert"><i className="fa fa-warning"></i>  {this.state.errors.email.msg}</div>}
                         <label htmlFor="email">Email address</label>
                         <input type="email" value={this.state.email} required name="email" onChange={this.changeHandler} className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"/>
             </div>
             <div className="form-group">
-            {this.state.errors && this.state.errors.password && <div className="alert alert-danger" role="alert">{this.state.errors.password.msg}</div>}
+            {this.state.errors && this.state.errors.password && <div className="alert alert-danger" role="alert"><i className="fa fa-warning"></i>  {this.state.errors.password.msg}</div>}
                         <label htmlFor="password">Password</label>
                         <input onChange={this.changeHandler} value={this.state.password} required name="password" type="password" className="form-control" id="password" placeholder="Password"/>
             </div>

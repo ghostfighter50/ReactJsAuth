@@ -63,23 +63,23 @@ export default class IndexRegister extends Component<IUser, IUser> {
           </div>
           <div className="row align-items-center">
             <div className="col mt-4">
-            {this.state.errors && this.state.errors.name && <div className="alert alert-danger" role="alert">{this.state.errors.name.msg}</div>}
+            {this.state.errors && this.state.errors.name && <div className="alert alert-danger" role="alert"><i className="fa fa-warning"></i>  {this.state.errors.name.msg}</div>}
               <input type="text" autoComplete="Name" required onChange={this.changeHandler} name="name" className="form-control" placeholder="Name" value={this.state.name}></input>
             </div>
           </div>
           <div className="row align-items-center mt-4">
             <div className="col">
-            {this.state.errors && this.state.errors.email && <div className="alert alert-danger" role="alert">{this.state.errors.email.msg}</div>}
+            {this.state.errors && this.state.errors.email && <div className="alert alert-danger" role="alert"><i className="fa fa-warning"></i>  {this.state.errors.email.msg}</div>}
               <input type="email" autoComplete="email" required onChange={this.changeHandler} name="email" className="form-control" placeholder="Email" value={this.state.email}></input>
             </div>
           </div>
           <div className="row align-items-center mt-4">
             <div className="col">
-            {this.state.errors && this.state.errors.password && <div className="alert alert-danger" role="alert">{this.state.errors.password.msg}</div>}
+            {this.state.errors && this.state.errors.password && <div className="alert alert-danger" role="alert"><i className="fa fa-warning"></i>  {this.state.errors.password.msg}</div>}
               <input type="password" autoComplete="password" required onChange={this.changeHandler} name="password" className="form-control" placeholder="Password" value={this.state.password}></input>
               </div>
             <div className="col">
-            {this.state.errors && this.state.errors.passwordValidation && <div className="alert alert-danger" role="alert">{this.state.errors.passwordValidation.msg}</div>}
+            {this.state.errors && this.state.errors.passwordValidation && <div className="alert alert-danger" role="alert"><i className="fa fa-warning"></i>  {this.state.errors.passwordValidation.msg}</div>}
               <input type="password" autoComplete="passwordValidation" required onChange={this.changeHandler} name="passwordValidation" className="form-control" placeholder="Repeat Password" value={this.state.passwordValidation}></input>
             </div>
           </div>

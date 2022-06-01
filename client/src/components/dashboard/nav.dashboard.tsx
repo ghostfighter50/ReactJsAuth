@@ -5,7 +5,7 @@ export default class DashboardNav extends Component {
     return (
             <div>
             <div className="align-center btn-block">
-                  <a className='btn btn-dark' href='/dashboard'>
+                  <a className='btn btn-dark' href='/manage/users'>
                         Home
                   </a>
                   <a

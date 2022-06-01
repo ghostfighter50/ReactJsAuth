@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import UsersService from '../services/users.service'
 
-const PrivateRoute:any = () => {
+const PublicRoute:any = () => {
   const [isLoading, setLoading] = useState<boolean>(true)
   const [IsAuthenticated, setIsAuthenticated] = useState<boolean | undefined>(undefined)
   useEffect(() => {
@@ -15,9 +15,9 @@ const PrivateRoute:any = () => {
     return <div>Loading...</div>
   }
   if (IsAuthenticated === true) {
-    return <>{<Outlet/>}</>
+    return <Navigate to="/manage/users" replace />
   } else {
-    return <Navigate to="/" replace />
+    return <>{<Outlet/>}</>
   }
 }
-export default PrivateRoute
+export default PublicRoute

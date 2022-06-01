@@ -17,7 +17,7 @@ function Detail (props:IUser) {
                 <div className="card-body">
                     <h5 className="card-title"> <b>Name: </b> {props.name}</h5>
                     <p className="card-text"><b>Email: </b>  {props.email}</p>
-                    <a className="btn btn-warning" href='/dashboard'>Go Back </a>
+                    <a className="btn btn-warning" href='/manage/users'>Go Back </a>
                 </div>
             </div>
   )
