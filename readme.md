@@ -9,8 +9,6 @@ Full stack Authentication system (Login, Register) made with typescript, react a
 
 - Dashboard (Blog system + Logs)
 
-- User roles (eg: admin)
-
 
 ## Badges
 
