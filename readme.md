@@ -7,8 +7,6 @@ Full stack Authentication system (Login, Register) made with typescript, react a
 
 ## TODO
 
-- More secure application
-
 - Dashboard (Blog system + Logs)
 
 - User roles (eg: admin)
