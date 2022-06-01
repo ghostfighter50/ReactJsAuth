@@ -61,7 +61,7 @@ Add badges from somewhere like: [shields.io](https://shields.io/)
   GET /api/users //returns all the data of the users
 ```
 ```
-  GET /api/users/:userId //returns the data of the specified user
+  GET /api/user/:userId //returns the data of the specified user
 ```
 
 Takes two numbers and returns the sum.
