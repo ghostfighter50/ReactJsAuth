@@ -9,7 +9,7 @@ Full stack Authentication system (Login, Register) made with typescript, react a
 
 - More secure application
 
-- Dashboard (Blog system)
+- Dashboard (Blog system + Logs)
 
 - User roles (eg: admin)
 
@@ -63,9 +63,6 @@ Add badges from somewhere like: [shields.io](https://shields.io/)
 ```
   GET /api/user/:userId //returns the data of the specified user
 ```
-
-Takes two numbers and returns the sum.
-
 
 ## Authors
 
