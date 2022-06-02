@@ -7,7 +7,8 @@ Full stack Authentication system (Login, Register) made with typescript, react a
 
 ## TODO
 
-- Dashboard (Blog system + Logs)
+-Admin Dashboard (Logs + User management)
+-File uploads manager (file upload api + profile page + list of files page + add file page + delete file page + download file page)
 
 
 ## Badges
