@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
+import LoadingMain from '../components/loading/loading.main'
 import UsersService from '../services/users.service'
 
 const AdminRoute:any = () => {
@@ -25,8 +26,8 @@ const AdminRoute:any = () => {
   if (IsAuthenticated === false) {
     return <Navigate to="/" replace />
   }
-  if (isLoading) {
-    return <div className='display-1 text-center text-white'>Loading...</div>
+  if (isLoading === true) {
+    return <LoadingMain/>
   }
   if (IsAdmin === true) {
     return <>{<Outlet/>}</>

@@ -7,19 +7,15 @@ import AdminMain from './components/admin/main.admin'
 import PrivateRoute from './routes/private.route'
 import PublicRoute from './routes/public.route'
 import AdminRoute from './routes/admin.route'
-import BanRoute from './routes/ban.route'
-import BanMain from './components/ban/main.ban'
+
 export default function App ():ReactElement {
   return (
       <Router>
           <Routes>
-            <Route path="*" element={<BanRoute/>}>
-              <Route element={<BanMain/>}/>
-            </Route>
             <Route path='/admin' element={<AdminRoute />}>
               <Route path='' element={<AdminMain/>}/>
             </Route>
-            <Route path='/users' element={<PrivateRoute Role='ADMIN'/>}>
+            <Route path='/users' element={<PrivateRoute/>}>
               <Route path=':userId' element={<DashboardDetails/>}/>
               <Route path='' element={<DashboardMain/>}/>
             </Route>

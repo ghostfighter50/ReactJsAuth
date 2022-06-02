@@ -25,6 +25,7 @@ export const LoginUser = async (req:Request, res:Response) => {
         return res.send({ errors: { email: { value: req.body.email, msg: 'User not found', param: 'email', location: 'body' } } })
       }
       if (user.comparePassword(req.body.password, user.password) === false) return res.send({ errors: { password: { value: req.body.password, msg: 'Wrong Password', param: 'password', location: 'body' } } })
+      if (user.roles.includes('BANNED') === true) { return res.send({ errors: { password: { value: req.body.password, msg: 'Wrong Password', param: 'password', location: 'body' } } }) } else if (user.comparePassword(req.body.password, user.password) === false) return res.send({ errors: { password: { value: req.body.password, msg: 'Wrong Password', param: 'password', location: 'body' } } })
       else {
         req.session.user = user
         req.session.IsAuthenticated = true
@@ -46,7 +47,7 @@ export const LogoutUser = (req:Request, res:Response) => {
 
 export const CheckAuthentication = async (req:Request, res:Response, next:NextFunction) => {
   if (req.session.IsAuthenticated === true) { return next() } else {
-    return res.json({ error: true, message: 'Not authenticated', IsAuthenticated: false, timestamp: new Date().toDateString() })
+    return res.status(204).json({ error: true, message: 'Not authenticated', IsAuthenticated: false, timestamp: new Date().toDateString() })
   }
 }
 

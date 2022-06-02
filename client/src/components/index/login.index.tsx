@@ -41,7 +41,7 @@ export default class IndexLogin extends Component<unknown, IUserLogin> {
   render () {
     return (
 
-<div className="modal " id="LoginModal" tabIndex={-1} role="dialog" aria-labelledby="LoginModal" aria-hidden="true">
+<div className="modal fade" id="LoginModal" tabIndex={-1} role="dialog" aria-labelledby="LoginModal" aria-hidden="true">
 {this.state.IsAuthenticated === true && <Navigate to="/users" replace/>}
   <div className="modal-dialog" role="document">
     <div className="modal-content">
