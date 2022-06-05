@@ -5,8 +5,8 @@ import IndexRegister from './register.index'
 export default class IndexMain extends Component {
   render () {
     return (
-      <div className='container'>
-        <IndexRegister/>
+      <div className="container">
+        <IndexRegister />
         <IndexLogin />
       </div>
     )

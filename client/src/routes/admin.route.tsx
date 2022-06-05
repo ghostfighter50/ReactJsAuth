@@ -3,13 +3,15 @@ import { Navigate, Outlet } from 'react-router-dom'
 import LoadingMain from '../components/loading/loading.main'
 import UsersService from '../services/users.service'
 
-const AdminRoute:any = () => {
+const AdminRoute: any = () => {
   const [isLoading, setLoading] = useState<boolean>(true)
   const [IsAdmin, setAdmin] = useState<boolean | undefined>(undefined)
-  const [IsAuthenticated, setIsAuthenticated] = useState<boolean | undefined>(undefined)
+  const [IsAuthenticated, setIsAuthenticated] = useState<boolean | undefined>(
+    undefined
+  )
 
   useEffect(() => {
-    new UsersService().GetRoles().then(data => {
+    new UsersService().GetRoles().then((data) => {
       if (data.IsAuthenticated === false) {
         setLoading(false)
         return setIsAuthenticated(false)
@@ -27,10 +29,10 @@ const AdminRoute:any = () => {
     return <Navigate to="/" replace />
   }
   if (isLoading === true) {
-    return <LoadingMain/>
+    return <LoadingMain />
   }
   if (IsAdmin === true) {
-    return <>{<Outlet/>}</>
+    return <>{<Outlet />}</>
   } else {
     return <Navigate to="/users" replace />
   }

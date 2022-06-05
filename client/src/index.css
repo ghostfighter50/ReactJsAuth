@@ -4,24 +4,24 @@ body {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   background-color: black;
 }
-.col{
+.col {
   margin-top: 0px;
 }
-.form-control{
+.form-control {
   margin-bottom: 20px;
 }
-.logoutButton{
+.logoutButton {
   float: right;
   margin-right: 200px;
 }
-.btn-warning{
+.btn-warning {
   margin: 10px;
 }
-.users{
+.users {
   margin: auto;
   text-align: center;
 }
-.header{
+.header {
   text-align: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 37px;
